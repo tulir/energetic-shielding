@@ -1,13 +1,13 @@
-package net.maunium.energeticshielding.blocks;
+package net.maunium.energeticshielding.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
 import net.maunium.energeticshielding.EnergeticShielding;
 
-public class ConductiveIronBlock extends Block {
+public class BlockConductiveIron extends Block {
 
-	protected ConductiveIronBlock() {
+	protected BlockConductiveIron() {
 		super(Material.iron);
 		this.setBlockName("blockConductiveIron");
 

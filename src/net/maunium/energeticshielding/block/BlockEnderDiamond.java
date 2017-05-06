@@ -1,13 +1,13 @@
-package net.maunium.energeticshielding.blocks;
+package net.maunium.energeticshielding.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
 import net.maunium.energeticshielding.EnergeticShielding;
 
-public class EnderInfusedDiamondBlock extends Block {
+public class BlockEnderDiamond extends Block {
 
-	protected EnderInfusedDiamondBlock() {
+	protected BlockEnderDiamond() {
 		super(Material.rock);
 		this.setBlockName("blockEnderDiamond");
 		this.setBlockTextureName(EnergeticShielding.MODID + ":ender_infused_diamond_block");

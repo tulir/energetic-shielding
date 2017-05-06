@@ -1,4 +1,4 @@
-package net.maunium.energeticshielding.blocks;
+package net.maunium.energeticshielding.block;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +14,8 @@ import net.maunium.energeticshielding.interop.Wrench;
 
 import cofh.lib.util.position.BlockPosition;
 
-public class TranslocatableBlock extends Block {
-	protected TranslocatableBlock() {
+public class BlockTranslocatable extends Block {
+	protected BlockTranslocatable() {
 		super(Material.rock);
 		this.setBlockName("blockTranslocatable");
 

@@ -1,6 +1,8 @@
-package net.maunium.energeticshielding;
+package net.maunium.energeticshielding.item;
 
 import net.minecraft.item.Item;
+
+import net.maunium.energeticshielding.EnergeticShielding;
 
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -9,7 +11,8 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public final class MauItems {
 	public static Item ingotConductiveIron, enderInfusedStick;
 	public static Item lockingCircuit, advancedLockingCircuit, remoteLockingCircuit, advancedRemoteLockingCircuit;
-	public static Item lockCoating;
+	public static Item lockCoating, lockingWand, lockingWandCore;
+	public static Item shinyElectrumBlend, shinyElectrumIngot, destabilizedShinyElectrumIngot;
 
 	public static final void init() {
 		ingotConductiveIron = new Item()
@@ -43,6 +46,22 @@ public final class MauItems {
 				.setTextureName(EnergeticShielding.texture("lock_coating"))
 				.setCreativeTab(EnergeticShielding.tab);
 
+		shinyElectrumBlend = new Item()
+				.setUnlocalizedName("dustShinyElectrum")
+				.setTextureName(EnergeticShielding.texture("shiny_electrum_blend"))
+				.setCreativeTab(EnergeticShielding.tab);
+		shinyElectrumIngot = new Item()
+				.setUnlocalizedName("ingotShinyElectrum")
+				.setTextureName(EnergeticShielding.texture("shiny_electrum_ingot"))
+				.setCreativeTab(EnergeticShielding.tab);
+		destabilizedShinyElectrumIngot = new Item()
+				.setUnlocalizedName("ingotDestabilizedShinyElectrum")
+				.setTextureName(EnergeticShielding.texture("destabilized_shiny_electrum_ingot"))
+				.setCreativeTab(EnergeticShielding.tab);
+
+		GameRegistry.registerItem(lockingWand = new ItemLockingWand(), "lockingWand");
+		GameRegistry.registerItem(lockingWandCore = new ItemLockingWandCore(), "lockingWandCore");
+
 		GameRegistry.registerItem(ingotConductiveIron, "ingotConductiveIron");
 		OreDictionary.registerOre("ingotConductiveIron", ingotConductiveIron);
 		GameRegistry.registerItem(enderInfusedStick, "enderInfusedStick");
@@ -51,6 +70,13 @@ public final class MauItems {
 		GameRegistry.registerItem(remoteLockingCircuit, "remoteLockingCircuit");
 		GameRegistry.registerItem(advancedRemoteLockingCircuit, "advancedRemoteLockingCircuit");
 		GameRegistry.registerItem(lockCoating, "lockCoating");
+
+		GameRegistry.registerItem(shinyElectrumBlend, "dustShinyElectrum");
+		OreDictionary.registerOre("dustShinyElectrum", shinyElectrumBlend);
+		GameRegistry.registerItem(shinyElectrumIngot, "ingotShinyElectrum");
+		OreDictionary.registerOre("ingotShinyElectrum", shinyElectrumIngot);
+		GameRegistry.registerItem(destabilizedShinyElectrumIngot, "ingotDestabilizedShinyElectrum");
+		OreDictionary.registerOre("ingotDestabilizedShinyElectrum", destabilizedShinyElectrumIngot);
 
 	}
 }

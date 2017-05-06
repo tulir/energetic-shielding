@@ -3,8 +3,9 @@ package net.maunium.energeticshielding;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
-import net.maunium.energeticshielding.blocks.MauBlocks;
+import net.maunium.energeticshielding.block.MauBlocks;
 import net.maunium.energeticshielding.interop.Wrench;
+import net.maunium.energeticshielding.item.MauItems;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
