@@ -1,0 +1,14 @@
+tile.blockConductiveIron.name=Block of Conductive Iron
+tile.blockTranslocatable.name=Translocatable Block
+tile.blockEnderDiamond.name=Ender-Infused Block of Diamond
+
+item.ingotConductiveIron.name=Conductive Iron Ingot
+item.enderInfusedStick.name=Ender-Infused Stick
+item.lockCoating.name=Lock Coating
+
+item.lockingCircuit.name=Locking Circuit
+item.advancedLockingCircuit.name=Advanced Locking Circuit
+item.remoteLockingCircuit.name=Remote Locking Circuit
+item.remoteAdvancedLockingCircuit.name=Remote Advanced Locking Circuit
+
+itemGroup.energeticShielding=Energetic Shielding

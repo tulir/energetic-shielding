@@ -1,0 +1,9 @@
+{
+  "homepage": "https://maunium.net/energetic-shielding",
+  "1.7.10": {
+    "0.1.0": "Initial release"
+  },
+  "promos": {
+    "1.7.10-latest": "0.1.0"
+  }
+}

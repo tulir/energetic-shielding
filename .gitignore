@@ -1,0 +1,5 @@
+mcdir/
+libs/
+build/
+bin/
+.gradle/
