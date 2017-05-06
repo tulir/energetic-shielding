@@ -9,6 +9,6 @@ item.lockCoating.name=Lock Coating
 item.lockingCircuit.name=Locking Circuit
 item.advancedLockingCircuit.name=Advanced Locking Circuit
 item.remoteLockingCircuit.name=Remote Locking Circuit
-item.remoteAdvancedLockingCircuit.name=Remote Advanced Locking Circuit
+item.advancedRemoteLockingCircuit.name=Advanced Remote Locking Circuit
 
 itemGroup.energeticShielding=Energetic Shielding
