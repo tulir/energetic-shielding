@@ -8,7 +8,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class MauBlocks {
 	public static Block blockConductiveIron, blockTranslocatable, blockEnderDiamond, blockShinyElectrum,
-			blockDestabilizedShinyElectrum;
+			blockDestabilizedShinyElectrum, blockProtected;
 
 	public static final void init() {
 		GameRegistry.registerBlock(blockConductiveIron = new BlockConductiveIron(), "blockConductiveIron");
@@ -21,5 +21,6 @@ public final class MauBlocks {
 		GameRegistry.registerBlock(blockDestabilizedShinyElectrum = new BlockDestabilizedShinyElectrum(),
 				"blockDestabilizedShinyElectrum");
 		OreDictionary.registerOre("blockDestabilizedShinyElectrum", blockDestabilizedShinyElectrum);
+		GameRegistry.registerBlock(blockProtected = new BlockProtected(), "blockProtected");
 	}
 }

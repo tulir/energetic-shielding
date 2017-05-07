@@ -71,14 +71,14 @@ public final class MauCrafting {
 				'D', "gemDiamond",
 				'L', MauItems.lockingCircuit,
 				'G', "ingotGold"));
-		
+
 		GameRegistry.addRecipe(new ItemStack(MauItems.lockingWand),
 				"  L",
 				" E ",
 				"E  ",
 				'L', MauItems.advancedRemoteLockingCircuit,
 				'E', MauItems.enderInfusedStick);
-		
+
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MauItems.lockingWandCore, 1, 0),
 				"SES",
 				"EDE",
@@ -86,7 +86,7 @@ public final class MauCrafting {
 				'S', "ingotSilver",
 				'E', Items.ender_pearl,
 				'D', Items.diamond));
-		
+
 		GameRegistry.addRecipe(new ItemStack(MauItems.lockingWandCore, 1, 1),
 				"CEC",
 				"EDE",
@@ -96,7 +96,7 @@ public final class MauCrafting {
 				'D', Blocks.diamond_block);
 		ThermalExpansionHelper.addTransposerFill(24000, new ItemStack(MauItems.lockingWandCore, 1, 1),
 				new ItemStack(MauItems.lockingWandCore, 1, 2), new FluidStack(TFFluids.fluidGlowstone, 10000), false);
-		
+
 		GameRegistry.addRecipe(new ItemStack(MauItems.lockingWandCore, 1, 3),
 				"CEC",
 				"EDE",
@@ -106,7 +106,7 @@ public final class MauCrafting {
 				'D', MauBlocks.blockDestabilizedShinyElectrum);
 		ThermalExpansionHelper.addTransposerFill(20000, new ItemStack(MauItems.lockingWandCore, 1, 3),
 				new ItemStack(MauItems.lockingWandCore, 1, 4), new FluidStack(TFFluids.fluidCryotheum, 5000), false);
-		
+
 		GameRegistry.addShapelessRecipe(new ItemStack(MauItems.lockingWand, 1, 1),
 				MauItems.lockingWand, new ItemStack(MauItems.lockingWandCore, 1, 0));
 
@@ -123,8 +123,8 @@ public final class MauCrafting {
 				new ItemStack(MauItems.ingotShinyElectrum),
 				new ItemStack(MauItems.ingotDestabilizedShinyElectrum),
 				new FluidStack(TFFluids.fluidRedstone, 2000), false);
-		
-		
+
+
 
 		ThermalExpansionHelper.addTransposerFill(4000,
 				new ItemStack(Items.stick),

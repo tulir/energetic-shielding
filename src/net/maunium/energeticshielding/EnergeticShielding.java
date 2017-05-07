@@ -17,7 +17,7 @@ public class EnergeticShielding {
 	public static final String MODID = "energeticshielding";
 	public static final String MODNAME = "Energetic Shielding";
 	public static final String VERSION = "0.1.0";
-	@SidedProxy(clientSide = "net.maunium.energeticshielding.proxy.CommonProxy",
+	@SidedProxy(clientSide = "net.maunium.energeticshielding.proxy.ClientProxy",
 			serverSide = "net.maunium.energeticshielding.proxy.ServerProxy")
 	public static CommonProxy proxy;
 	public static CreativeTabs tab;
