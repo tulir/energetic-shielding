@@ -2,6 +2,8 @@ package net.maunium.energeticshielding;
 
 import net.minecraft.creativetab.CreativeTabs;
 
+import net.maunium.energeticshielding.proxy.CommonProxy;
+
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;

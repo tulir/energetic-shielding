@@ -1,4 +1,4 @@
-package net.maunium.energeticshielding;
+package net.maunium.energeticshielding.proxy;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;

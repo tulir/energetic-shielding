@@ -1,8 +1,10 @@
-package net.maunium.energeticshielding;
+package net.maunium.energeticshielding.proxy;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
+import net.maunium.energeticshielding.EnergeticShielding;
+import net.maunium.energeticshielding.MauCrafting;
 import net.maunium.energeticshielding.block.MauBlocks;
 import net.maunium.energeticshielding.interop.Wrench;
 import net.maunium.energeticshielding.item.MauItems;
