@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
@@ -19,6 +20,9 @@ import net.maunium.energeticshielding.EnergeticShielding;
 import net.maunium.energeticshielding.block.MauBlocks;
 import net.maunium.energeticshielding.tile.TileProtected;
 
+import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import cofh.api.energy.IEnergyContainerItem;
 import cofh.lib.util.position.BlockPosition;
 
@@ -27,8 +31,7 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 
 	public ItemLockingWand() {
 		super();
-		this
-				.setHasSubtypes(true)
+		setHasSubtypes(true)
 				.setUnlocalizedName("lockingWand")
 				.setCreativeTab(EnergeticShielding.tab)
 				.setMaxStackSize(1)
@@ -38,10 +41,10 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 	@Override
 	public void registerIcons(IIconRegister reg) {
 		String textureName = EnergeticShielding.texture("locking_wand");
-		this.icons[0] = reg.registerIcon(textureName + "_coreless");
-		this.icons[1] = reg.registerIcon(textureName + "_tier1");
-		this.icons[2] = reg.registerIcon(textureName + "_tier2");
-		this.icons[3] = reg.registerIcon(textureName + "_tier3");
+		icons[0] = reg.registerIcon(textureName + "_coreless");
+		icons[1] = reg.registerIcon(textureName + "_tier1");
+		icons[2] = reg.registerIcon(textureName + "_tier2");
+		icons[3] = reg.registerIcon(textureName + "_tier3");
 	}
 
 	@Override
@@ -51,13 +54,13 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 
 	@Override
 	public IIcon getIconFromDamage(int meta) {
-		return this.icons[meta % 4];
+		return icons[meta % 4];
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void getSubItems(Item item, CreativeTabs tab, List l) {
-		for (int i = 0; i < this.icons.length; i++) {
+		for (int i = 0; i < icons.length; i++) {
 			l.add(new ItemStack(item, 1, i));
 		}
 	}
@@ -120,7 +123,7 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 		if (stack.getItemDamage() == 0) {
 			return 0;
 		}
-		return this.getMaxEnergyStored(stack) - this.getEnergyStored(stack);
+		return getMaxEnergyStored(stack) - getEnergyStored(stack);
 	}
 
 	@Override
@@ -128,7 +131,7 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 		if (stack.getItemDamage() == 0) {
 			return 0;
 		}
-		return this.getMaxEnergyStored(stack);
+		return getMaxEnergyStored(stack);
 	}
 
 	@Override
@@ -142,8 +145,8 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 			container.setTagCompound(new NBTTagCompound());
 		}
 		int energy = container.getTagCompound().getInteger("Energy");
-		int energyReceived = Math.min(this.getMaxEnergyStored(container) - energy,
-				Math.min(this.getMaxReceive(container), maxReceive));
+		int energyReceived = Math.min(getMaxEnergyStored(container) - energy,
+				Math.min(getMaxReceive(container), maxReceive));
 
 		if (!simulate) {
 			energy += energyReceived;
@@ -172,7 +175,7 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 		if (!stack.hasTagCompound()) {
 			stack.setTagCompound(new NBTTagCompound());
 		}
-		int maxRadius = this.getMaxRadius(stack);
+		int maxRadius = getMaxRadius(stack);
 		if (radius > maxRadius) {
 			radius = maxRadius;
 		}
@@ -186,9 +189,9 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 		if (w.isRemote || p.isSneaking()) {
 			return false;
 		}
-		int radius = this.getRadius(stack);
-		if (this.useEnergy(stack, radius * 500)) {
-			this.protect(stack, p, w, x, y, z, side);
+		int radius = getRadius(stack);
+		if (useEnergy(stack, radius * 5000 - stack.getItemDamage() % 4 * 1000)) {
+			protect(stack, p, w, x, y, z, side);
 			return true;
 		}
 		return false;
@@ -203,8 +206,7 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 		TileEntity currentTile = world.getTileEntity(x, y, z);
 		boolean solid = world.isBlockNormalCubeDefault(x, y, z, true);
 		if (currentTile == null && solid) {
-			List<BlockPosition> blocks = new ArrayList<>();
-			// TODO calculate blocks
+			List<BlockPosition> blocks = getBlocksInRadius(stack, x, y, z, ForgeDirection.getOrientation(side));
 			blocks.add(new BlockPosition(x, y, z));
 			for (BlockPosition pos : blocks) {
 				if (pos.getTileEntity(world) == null && world.isBlockNormalCubeDefault(pos.x, pos.y, pos.z, true)) {
@@ -217,8 +219,17 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 						tile.block = block;
 						tile.blockMeta = (byte) meta;
 						tile.light = (byte) light;
-						// TODO Get owners from wand meta
-						tile.owners = new int[] { player.getUniqueID().toString().hashCode() };
+
+						if (!stack.hasTagCompound()) {
+							tile.owners = new int[] { player.getUniqueID().toString().hashCode() };
+						} else {
+							NBTTagCompound tag = stack.getTagCompound();
+							NBTTagList list = tag.getTagList("Friends", Constants.NBT.TAG_STRING);
+							tile.owners = new int[list.tagCount()];
+							for (int i = 0; i < list.tagCount(); i++) {
+								tile.owners[i] = list.getStringTagAt(i).hashCode();
+							}
+						}
 						world.markBlockForUpdate(pos.x, pos.y, pos.z);
 					}
 				}
@@ -227,9 +238,7 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 		} else if (currentTile != null && currentTile instanceof TileProtected) {
 			TileProtected currentTileProtected = (TileProtected) currentTile;
 			if (currentTileProtected.canBeEditedBy(player)) {
-				List<BlockPosition> blocks = new ArrayList<>();
-				// TODO calculate blocks
-				blocks.add(new BlockPosition(x, y, z));
+				List<BlockPosition> blocks = getBlocksInRadius(stack, x, y, z, ForgeDirection.getOrientation(side));
 				for (BlockPosition pos : blocks) {
 					TileProtected tile = pos.getTileEntity(world, TileProtected.class);
 					if (tile != null && tile.canBeEditedBy(player)) {
@@ -242,16 +251,42 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 		}
 	}
 
+	public List<BlockPosition> getBlocksInRadius(ItemStack stack, int centerX, int centerY, int centerZ,
+			ForgeDirection side) {
+		int radius = getRadius(stack) - 1;
+		List<BlockPosition> blocks = new ArrayList<>();
+		if (side == ForgeDirection.DOWN || side == ForgeDirection.UP) {
+			for (int x = centerX - radius; x <= centerX + radius; x++) {
+				for (int z = centerZ - radius; z <= centerZ + radius; z++) {
+					blocks.add(new BlockPosition(x, centerY, z));
+				}
+			}
+		} else if (side == ForgeDirection.NORTH || side == ForgeDirection.SOUTH) {
+			for (int x = centerX - radius; x <= centerX + radius; x++) {
+				for (int y = centerY - radius; y <= centerY + radius; y++) {
+					blocks.add(new BlockPosition(x, y, centerZ));
+				}
+			}
+		} else if (side == ForgeDirection.EAST || side == ForgeDirection.WEST) {
+			for (int z = centerZ - radius; z <= centerZ + radius; z++) {
+				for (int y = centerY - radius; y <= centerY + radius; y++) {
+					blocks.add(new BlockPosition(centerX, y, z));
+				}
+			}
+		}
+		return blocks;
+	}
+
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World w, EntityPlayer p) {
 		if (!w.isRemote && p.isSneaking()) {
-			int radius = this.getRadius(stack);
-			int maxRadius = this.getMaxRadius(stack);
+			int radius = getRadius(stack);
+			int maxRadius = getMaxRadius(stack);
 			int newRadius;
 			if (radius < maxRadius) {
-				newRadius = this.setRadius(stack, radius + 1);
+				newRadius = setRadius(stack, radius + 1);
 			} else {
-				newRadius = this.setRadius(stack, 1);
+				newRadius = setRadius(stack, 1);
 			}
 			if (newRadius != radius) {
 				p.addChatMessage(new ChatComponentText("Radius: " + newRadius + " (max: " + maxRadius + ")"));
