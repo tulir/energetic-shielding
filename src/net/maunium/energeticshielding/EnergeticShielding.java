@@ -12,14 +12,13 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = EnergeticShielding.MODID, name = EnergeticShielding.MODNAME,
-		version = EnergeticShielding.VERSION)
+@Mod(modid = EnergeticShielding.MODID, name = EnergeticShielding.MODNAME, version = EnergeticShielding.VERSION)
 public class EnergeticShielding {
 	public static final String MODID = "energeticshielding";
 	public static final String MODNAME = "Energetic Shielding";
 	public static final String VERSION = "0.1.0";
-	@SidedProxy(clientSide = "net.maunium.energeticshielding.CommonProxy",
-			serverSide = "net.maunium.energeticshielding.ServerProxy")
+	@SidedProxy(clientSide = "net.maunium.energeticshielding.proxy.CommonProxy",
+			serverSide = "net.maunium.energeticshielding.proxy.ServerProxy")
 	public static CommonProxy proxy;
 	public static CreativeTabs tab;
 
