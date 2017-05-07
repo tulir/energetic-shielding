@@ -1,7 +1,6 @@
 package net.maunium.energeticshielding.item;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -11,7 +10,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
@@ -21,7 +19,6 @@ import net.maunium.energeticshielding.EnergeticShielding;
 import net.maunium.energeticshielding.block.MauBlocks;
 import net.maunium.energeticshielding.tile.TileProtected;
 
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import cofh.api.energy.IEnergyContainerItem;
@@ -208,7 +205,9 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 		boolean solid = world.isBlockNormalCubeDefault(x, y, z, true);
 		if (currentTile == null && solid) {
 			List<BlockPosition> blocks = getBlocksInRadius(stack, x, y, z, ForgeDirection.getOrientation(side));
-			blocks.add(new BlockPosition(x, y, z));
+
+			int[] wandFriends = ItemIdentityCard.getFriendHashes(stack, player);
+
 			for (BlockPosition pos : blocks) {
 				if (pos.getTileEntity(world) == null && world.isBlockNormalCubeDefault(pos.x, pos.y, pos.z, true)) {
 					Block block = pos.getBlock(world);
@@ -220,30 +219,7 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 						tile.block = block;
 						tile.blockMeta = (byte) meta;
 						tile.light = (byte) light;
-
-						if (!stack.hasTagCompound()) {
-							tile.owners = new int[] { player.getUniqueID().toString().hashCode() };
-						} else {
-							NBTTagCompound tag = stack.getTagCompound();
-							NBTTagList list = tag.getTagList("Friends", Constants.NBT.TAG_STRING);
-							if (list.tagCount() == 0) {
-								tile.owners = new int[] { player.getUniqueID().toString().hashCode() };
-							} else {
-								int selfHash = player.getUniqueID().toString().hashCode();
-								boolean selfIsOwner = false;
-								tile.owners = new int[list.tagCount()];
-								for (int i = 0; i < list.tagCount(); i++) {
-									tile.owners[i] = list.getStringTagAt(i).hashCode();
-									if (!selfIsOwner && tile.owners[i] == selfHash) {
-										selfIsOwner = true;
-									}
-								}
-								if (!selfIsOwner) {
-									tile.owners = Arrays.copyOf(tile.owners, tile.owners.length + 1);
-									tile.owners[tile.owners.length - 1] = selfHash;
-								}
-							}
-						}
+						tile.owners = wandFriends;
 						world.markBlockForUpdate(pos.x, pos.y, pos.z);
 					}
 				}

@@ -29,4 +29,6 @@ item.lockingWandCore_2.name=Locking Wand Core (Tier 2)
 item.lockingWandCore_3.name=Locking Wand Core (Tier 3, Unstable)
 item.lockingWandCore_4.name=Locking Wand Core (Tier 3)
 
+item.identityCard.name=Identity Card
+
 itemGroup.energeticShielding=Energetic Shielding

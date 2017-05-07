@@ -5,6 +5,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import net.maunium.energeticshielding.block.MauBlocks;
+import net.maunium.energeticshielding.item.ItemIdentityCard;
 import net.maunium.energeticshielding.item.MauItems;
 
 import net.minecraftforge.fluids.FluidStack;
@@ -78,6 +79,16 @@ public final class MauCrafting {
 				"E  ",
 				'L', MauItems.advancedRemoteLockingCircuit,
 				'E', MauItems.enderInfusedStick);
+		GameRegistry.addRecipe(new ItemStack(MauItems.identityCard),
+				"FIC",
+				"PPP",
+				'F', Items.feather,
+				'I', new ItemStack(Items.dye, 1, 0),
+				'C', MauItems.lockingCircuit,
+				'P', Items.paper);
+
+		GameRegistry.addRecipe(ItemIdentityCard.cardDuplication);
+		GameRegistry.addRecipe(ItemIdentityCard.cardToWand);
 
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MauItems.lockingWandCore, 1, 0),
 				"SES",
