@@ -2,11 +2,12 @@
   "modid": "energeticshielding",
   "name": "Energetic Shielding",
   "description": "",
-  "version": "0.1.0",
-  "mcversion": "1.7.10",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
   "logoFile": "assets/energeticshielding/textures/logo.png",
   "url": "https://maunium.net/energetic-shielding",
   "updateJSON": "maunium.net/energetic-shielding/versions.json",
   "authorList": ["Tulir Asokan"],
   "credits": "",
+  "dependencies": ["MinecraftForge", "CoFHCore", "ThermalFoundation", "ThermalExpansion"]
 }]

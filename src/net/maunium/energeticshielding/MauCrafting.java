@@ -124,8 +124,6 @@ public final class MauCrafting {
 				new ItemStack(MauItems.ingotDestabilizedShinyElectrum),
 				new FluidStack(TFFluids.fluidRedstone, 2000), false);
 
-
-
 		ThermalExpansionHelper.addTransposerFill(4000,
 				new ItemStack(Items.stick),
 				new ItemStack(MauItems.enderInfusedStick),
