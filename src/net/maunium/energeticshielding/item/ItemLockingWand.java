@@ -1,6 +1,7 @@
 package net.maunium.energeticshielding.item;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -225,9 +226,22 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 						} else {
 							NBTTagCompound tag = stack.getTagCompound();
 							NBTTagList list = tag.getTagList("Friends", Constants.NBT.TAG_STRING);
-							tile.owners = new int[list.tagCount()];
-							for (int i = 0; i < list.tagCount(); i++) {
-								tile.owners[i] = list.getStringTagAt(i).hashCode();
+							if (list.tagCount() == 0) {
+								tile.owners = new int[] { player.getUniqueID().toString().hashCode() };
+							} else {
+								int selfHash = player.getUniqueID().toString().hashCode();
+								boolean selfIsOwner = false;
+								tile.owners = new int[list.tagCount()];
+								for (int i = 0; i < list.tagCount(); i++) {
+									tile.owners[i] = list.getStringTagAt(i).hashCode();
+									if (!selfIsOwner && tile.owners[i] == selfHash) {
+										selfIsOwner = true;
+									}
+								}
+								if (!selfIsOwner) {
+									tile.owners = Arrays.copyOf(tile.owners, tile.owners.length + 1);
+									tile.owners[tile.owners.length - 1] = selfHash;
+								}
 							}
 						}
 						world.markBlockForUpdate(pos.x, pos.y, pos.z);
