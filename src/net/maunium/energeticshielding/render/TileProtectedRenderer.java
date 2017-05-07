@@ -44,39 +44,39 @@ public class TileProtectedRenderer extends TileEntitySpecialRenderer {
 
 				renderBlocks.setRenderBounds(-0.001, -0.001, -0.001, 1.001, 1.001, 1.001);
 				if (tile.canBeEditedBy(player)) {
-					GL11.glColor4f(0, 1.0f, 0, 0.4F);
+					GL11.glColor4f(0, 1.0f, 0, 0.25F);
 				} else {
-					GL11.glColor4f(1.0f, 0, 0, 0.4F);
+					GL11.glColor4f(1.0f, 0, 0, 0.25F);
 				}
 				t.startDrawingQuads();
 
 				t.setBrightness(200);
 
-				this.field_147501_a.field_147553_e.bindTexture(TextureMap.locationBlocksTexture);
+				field_147501_a.field_147553_e.bindTexture(TextureMap.locationBlocksTexture);
 				GL11.glTexEnvi(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, GL11.GL_ADD);
-				if (this.shouldSideBeRendered(world, tile.xCoord, tile.yCoord, tile.zCoord, 1)) {
-					renderBlocks.renderFaceYNeg(MauBlocks.blockProtected, -0.5001, 0.0, -0.5001, this.getIconOnSide(
-							world, tile.xCoord, tile.yCoord, tile.zCoord, 0, tile.owners, player.ticksExisted));
+				if (shouldSideBeRendered(world, tile.xCoord, tile.yCoord, tile.zCoord, 1)) {
+					renderBlocks.renderFaceYNeg(MauBlocks.blockProtected, -0.5001, 0.0, -0.5001, getIconOnSide(world,
+							tile.xCoord, tile.yCoord, tile.zCoord, 0, tile.owners, player.ticksExisted));
 				}
-				if (this.shouldSideBeRendered(world, tile.xCoord, tile.yCoord, tile.zCoord, 0)) {
-					renderBlocks.renderFaceYPos(MauBlocks.blockProtected, -0.5001, 0.0, -0.5001, this.getIconOnSide(
-							world, tile.xCoord, tile.yCoord, tile.zCoord, 1, tile.owners, player.ticksExisted));
+				if (shouldSideBeRendered(world, tile.xCoord, tile.yCoord, tile.zCoord, 0)) {
+					renderBlocks.renderFaceYPos(MauBlocks.blockProtected, -0.5001, 0.0, -0.5001, getIconOnSide(world,
+							tile.xCoord, tile.yCoord, tile.zCoord, 1, tile.owners, player.ticksExisted));
 				}
-				if (this.shouldSideBeRendered(world, tile.xCoord, tile.yCoord, tile.zCoord, 3)) {
-					renderBlocks.renderFaceZNeg(MauBlocks.blockProtected, -0.5001, 0.0, -0.5001, this.getIconOnSide(
-							world, tile.xCoord, tile.yCoord, tile.zCoord, 2, tile.owners, player.ticksExisted));
+				if (shouldSideBeRendered(world, tile.xCoord, tile.yCoord, tile.zCoord, 3)) {
+					renderBlocks.renderFaceZNeg(MauBlocks.blockProtected, -0.5001, 0.0, -0.5001, getIconOnSide(world,
+							tile.xCoord, tile.yCoord, tile.zCoord, 2, tile.owners, player.ticksExisted));
 				}
-				if (this.shouldSideBeRendered(world, tile.xCoord, tile.yCoord, tile.zCoord, 2)) {
-					renderBlocks.renderFaceZPos(MauBlocks.blockProtected, -0.5001, 0.0, -0.5001, this.getIconOnSide(
-							world, tile.xCoord, tile.yCoord, tile.zCoord, 3, tile.owners, player.ticksExisted));
+				if (shouldSideBeRendered(world, tile.xCoord, tile.yCoord, tile.zCoord, 2)) {
+					renderBlocks.renderFaceZPos(MauBlocks.blockProtected, -0.5001, 0.0, -0.5001, getIconOnSide(world,
+							tile.xCoord, tile.yCoord, tile.zCoord, 3, tile.owners, player.ticksExisted));
 				}
-				if (this.shouldSideBeRendered(world, tile.xCoord, tile.yCoord, tile.zCoord, 5)) {
-					renderBlocks.renderFaceXNeg(MauBlocks.blockProtected, -0.5001, 0.0, -0.5001, this.getIconOnSide(
-							world, tile.xCoord, tile.yCoord, tile.zCoord, 4, tile.owners, player.ticksExisted));
+				if (shouldSideBeRendered(world, tile.xCoord, tile.yCoord, tile.zCoord, 5)) {
+					renderBlocks.renderFaceXNeg(MauBlocks.blockProtected, -0.5001, 0.0, -0.5001, getIconOnSide(world,
+							tile.xCoord, tile.yCoord, tile.zCoord, 4, tile.owners, player.ticksExisted));
 				}
-				if (this.shouldSideBeRendered(world, tile.xCoord, tile.yCoord, tile.zCoord, 4)) {
-					renderBlocks.renderFaceXPos(MauBlocks.blockProtected, -0.5001, 0.0, -0.5001, this.getIconOnSide(
-							world, tile.xCoord, tile.yCoord, tile.zCoord, 5, tile.owners, player.ticksExisted));
+				if (shouldSideBeRendered(world, tile.xCoord, tile.yCoord, tile.zCoord, 4)) {
+					renderBlocks.renderFaceXPos(MauBlocks.blockProtected, -0.5001, 0.0, -0.5001, getIconOnSide(world,
+							tile.xCoord, tile.yCoord, tile.zCoord, 5, tile.owners, player.ticksExisted));
 				}
 				t.draw();
 				GL11.glTexEnvi(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, GL11.GL_MODULATE);
