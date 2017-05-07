@@ -17,7 +17,9 @@ public final class MauBlocks {
 		GameRegistry.registerBlock(blockEnderDiamond = new BlockEnderDiamond(), "blockEnderDiamond");
 		OreDictionary.registerOre("blockEnderDiamond", blockEnderDiamond);
 		GameRegistry.registerBlock(blockShinyElectrum = new BlockShinyElectrum(), "blockShinyElectrum");
+		OreDictionary.registerOre("blockShinyElectrum", blockShinyElectrum);
 		GameRegistry.registerBlock(blockDestabilizedShinyElectrum = new BlockDestabilizedShinyElectrum(),
 				"blockDestabilizedShinyElectrum");
+		OreDictionary.registerOre("blockDestabilizedShinyElectrum", blockDestabilizedShinyElectrum);
 	}
 }

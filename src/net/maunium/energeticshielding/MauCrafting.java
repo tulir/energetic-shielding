@@ -11,7 +11,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
-import cofh.thermalexpansion.util.crafting.TransposerManager;
+import cofh.api.modhelpers.ThermalExpansionHelper;
 import cofh.thermalfoundation.fluid.TFFluids;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -23,6 +23,13 @@ public final class MauCrafting {
 				"III",
 				"III",
 				'I', "ingotConductiveIron"));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(MauItems.ingotConductiveIron, 9), "blockConductiveIron"));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MauBlocks.blockEnderDiamond),
+				"III",
+				"III",
+				"III",
+				'I', "gemEnderDiamond"));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(MauItems.gemEnderDiamond, 9), "blockEnderDiamond"));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MauItems.ingotConductiveIron),
 				" R ",
 				"RIR",
@@ -34,11 +41,13 @@ public final class MauCrafting {
 				"III",
 				"III",
 				'I', "ingotShinyElectrum"));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(MauItems.ingotShinyElectrum, 9), "blockShinyElectrum"));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MauBlocks.blockDestabilizedShinyElectrum),
 				"III",
 				"III",
 				"III",
 				'I', "ingotDestabilizedShinyElectrum"));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(MauItems.ingotDestabilizedShinyElectrum, 9), "blockDestabilizedShinyElectrum"));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MauItems.lockingCircuit),
 				"GGG",
 				"RSR",
@@ -85,7 +94,7 @@ public final class MauCrafting {
 				'C', new ItemStack(MauItems.lockingWandCore, 1, 0),
 				'E', Items.ender_pearl,
 				'D', Blocks.diamond_block);
-		TransposerManager.addFillRecipe(24000, new ItemStack(MauItems.lockingWandCore, 1, 1),
+		ThermalExpansionHelper.addTransposerFill(24000, new ItemStack(MauItems.lockingWandCore, 1, 1),
 				new ItemStack(MauItems.lockingWandCore, 1, 2), new FluidStack(TFFluids.fluidGlowstone, 10000), false);
 		
 		GameRegistry.addRecipe(new ItemStack(MauItems.lockingWandCore, 1, 3),
@@ -95,7 +104,7 @@ public final class MauCrafting {
 				'C', new ItemStack(MauItems.lockingWandCore, 1, 2),
 				'E', MauBlocks.blockEnderDiamond,
 				'D', MauBlocks.blockDestabilizedShinyElectrum);
-		TransposerManager.addFillRecipe(20000, new ItemStack(MauItems.lockingWandCore, 1, 3),
+		ThermalExpansionHelper.addTransposerFill(20000, new ItemStack(MauItems.lockingWandCore, 1, 3),
 				new ItemStack(MauItems.lockingWandCore, 1, 4), new FluidStack(TFFluids.fluidCryotheum, 5000), false);
 		
 		GameRegistry.addShapelessRecipe(new ItemStack(MauItems.lockingWand, 1, 1),
@@ -107,32 +116,36 @@ public final class MauCrafting {
 		GameRegistry.addShapelessRecipe(new ItemStack(MauItems.lockingWand, 1, 3),
 				MauItems.lockingWand, new ItemStack(MauItems.lockingWandCore, 1, 4));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(MauItems.shinyElectrumBlend), "dustPlatinum", "dustGold", "dustSilver"));
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(MauItems.shinyElectrumBlend), "dustPlatinum", "dustElectrum", "dustElectrum"));
-		GameRegistry.addSmelting(MauItems.shinyElectrumBlend, new ItemStack(MauItems.shinyElectrumIngot), 2.0f);
-		TransposerManager.addFillRecipe(8000,
-				new ItemStack(MauItems.shinyElectrumIngot),
-				new ItemStack(MauItems.destabilizedShinyElectrumIngot),
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(MauItems.dustShinyElectrum), "dustPlatinum", "dustGold", "dustSilver"));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(MauItems.dustShinyElectrum), "dustPlatinum", "dustElectrum", "dustElectrum"));
+		GameRegistry.addSmelting(MauItems.dustShinyElectrum, new ItemStack(MauItems.ingotShinyElectrum), 2.0f);
+		ThermalExpansionHelper.addTransposerFill(8000,
+				new ItemStack(MauItems.ingotShinyElectrum),
+				new ItemStack(MauItems.ingotDestabilizedShinyElectrum),
 				new FluidStack(TFFluids.fluidRedstone, 2000), false);
 		
 		
 
-		TransposerManager.addFillRecipe(4000,
+		ThermalExpansionHelper.addTransposerFill(4000,
 				new ItemStack(Items.stick),
 				new ItemStack(MauItems.enderInfusedStick),
 				new FluidStack(TFFluids.fluidEnder, 250), false);
-		TransposerManager.addFillRecipe(8000,
+		ThermalExpansionHelper.addTransposerFill(8000,
 				new ItemStack(MauItems.lockingCircuit),
 				new ItemStack(MauItems.remoteLockingCircuit),
 				new FluidStack(TFFluids.fluidEnder, 500), false);
-		TransposerManager.addFillRecipe(12000,
+		ThermalExpansionHelper.addTransposerFill(12000,
 				new ItemStack(MauItems.advancedLockingCircuit),
 				new ItemStack(MauItems.advancedRemoteLockingCircuit),
 				new FluidStack(TFFluids.fluidEnder, 1000), false);
-		TransposerManager.addFillRecipe(20000,
+		ThermalExpansionHelper.addTransposerFill(20000,
 				new ItemStack(Blocks.diamond_block),
 				new ItemStack(MauBlocks.blockEnderDiamond),
 				new FluidStack(TFFluids.fluidEnder, 2250), false);
+		ThermalExpansionHelper.addTransposerFill(2600,
+				new ItemStack(Items.diamond),
+				new ItemStack(MauItems.gemEnderDiamond),
+				new FluidStack(TFFluids.fluidEnder, 250), false);
 		// @formatter:on
 	}
 }

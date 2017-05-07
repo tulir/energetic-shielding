@@ -9,10 +9,10 @@ import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class MauItems {
-	public static Item ingotConductiveIron, enderInfusedStick;
-	public static Item lockingCircuit, advancedLockingCircuit, remoteLockingCircuit, advancedRemoteLockingCircuit;
-	public static Item lockCoating, lockingWand, lockingWandCore;
-	public static Item shinyElectrumBlend, shinyElectrumIngot, destabilizedShinyElectrumIngot;
+	public static Item ingotConductiveIron, gemEnderDiamond, dustShinyElectrum, ingotShinyElectrum,
+			ingotDestabilizedShinyElectrum;
+	public static Item lockingCircuit, advancedLockingCircuit, remoteLockingCircuit, advancedRemoteLockingCircuit,
+			enderInfusedStick, lockCoating, lockingWand, lockingWandCore;
 
 	public static final void init() {
 		ingotConductiveIron = new Item()
@@ -22,6 +22,10 @@ public final class MauItems {
 		enderInfusedStick = new Item()
 				.setUnlocalizedName("enderInfusedStick")
 				.setTextureName(EnergeticShielding.texture("ender_infused_stick"))
+				.setCreativeTab(EnergeticShielding.tab);
+		gemEnderDiamond = new Item()
+				.setUnlocalizedName("gemEnderDiamond")
+				.setTextureName(EnergeticShielding.texture("ender_infused_diamond"))
 				.setCreativeTab(EnergeticShielding.tab);
 
 		lockingCircuit = new Item()
@@ -46,15 +50,15 @@ public final class MauItems {
 				.setTextureName(EnergeticShielding.texture("lock_coating"))
 				.setCreativeTab(EnergeticShielding.tab);
 
-		shinyElectrumBlend = new Item()
+		dustShinyElectrum = new Item()
 				.setUnlocalizedName("dustShinyElectrum")
 				.setTextureName(EnergeticShielding.texture("shiny_electrum_blend"))
 				.setCreativeTab(EnergeticShielding.tab);
-		shinyElectrumIngot = new Item()
+		ingotShinyElectrum = new Item()
 				.setUnlocalizedName("ingotShinyElectrum")
 				.setTextureName(EnergeticShielding.texture("shiny_electrum_ingot"))
 				.setCreativeTab(EnergeticShielding.tab);
-		destabilizedShinyElectrumIngot = new Item()
+		ingotDestabilizedShinyElectrum = new Item()
 				.setUnlocalizedName("ingotDestabilizedShinyElectrum")
 				.setTextureName(EnergeticShielding.texture("destabilized_shiny_electrum_ingot"))
 				.setCreativeTab(EnergeticShielding.tab);
@@ -64,6 +68,8 @@ public final class MauItems {
 
 		GameRegistry.registerItem(ingotConductiveIron, "ingotConductiveIron");
 		OreDictionary.registerOre("ingotConductiveIron", ingotConductiveIron);
+		GameRegistry.registerItem(gemEnderDiamond, "gemEnderDiamond");
+		OreDictionary.registerOre("gemEnderDiamond", gemEnderDiamond);
 		GameRegistry.registerItem(enderInfusedStick, "enderInfusedStick");
 		GameRegistry.registerItem(lockingCircuit, "lockingCircuit");
 		GameRegistry.registerItem(advancedLockingCircuit, "advancedLockingCircuit");
@@ -71,12 +77,12 @@ public final class MauItems {
 		GameRegistry.registerItem(advancedRemoteLockingCircuit, "advancedRemoteLockingCircuit");
 		GameRegistry.registerItem(lockCoating, "lockCoating");
 
-		GameRegistry.registerItem(shinyElectrumBlend, "dustShinyElectrum");
-		OreDictionary.registerOre("dustShinyElectrum", shinyElectrumBlend);
-		GameRegistry.registerItem(shinyElectrumIngot, "ingotShinyElectrum");
-		OreDictionary.registerOre("ingotShinyElectrum", shinyElectrumIngot);
-		GameRegistry.registerItem(destabilizedShinyElectrumIngot, "ingotDestabilizedShinyElectrum");
-		OreDictionary.registerOre("ingotDestabilizedShinyElectrum", destabilizedShinyElectrumIngot);
+		GameRegistry.registerItem(dustShinyElectrum, "dustShinyElectrum");
+		OreDictionary.registerOre("dustShinyElectrum", dustShinyElectrum);
+		GameRegistry.registerItem(ingotShinyElectrum, "ingotShinyElectrum");
+		OreDictionary.registerOre("ingotShinyElectrum", ingotShinyElectrum);
+		GameRegistry.registerItem(ingotDestabilizedShinyElectrum, "ingotDestabilizedShinyElectrum");
+		OreDictionary.registerOre("ingotDestabilizedShinyElectrum", ingotDestabilizedShinyElectrum);
 
 	}
 }
