@@ -103,17 +103,6 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 		}
 	}
 
-	/*
-	 * @Override
-	 * public double getDurabilityForDisplay(ItemStack stack) {
-	 * if (stack.getItemDamage() == 0) {
-	 * return 1;
-	 * }
-	 * return (double) this.getMaxEnergyStored(stack) / (double)
-	 * this.getEnergyStored(stack);
-	 * }
-	 */
-
 	public int getDisplayDamage(ItemStack stack) {
 		if (stack.getItemDamage() == 0) {
 			return 0;
