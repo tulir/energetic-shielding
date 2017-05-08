@@ -40,22 +40,22 @@ public class BlockProtected extends BlockContainer {
 
 	public BlockProtected() {
 		super(Material.rock);
-		setStepSound(soundTypeStone);
-		disableStats();
-		setResistance(9999.0F);
-		setBlockUnbreakable();
+		this.setStepSound(soundTypeStone);
+		this.disableStats();
+		this.setResistance(9999.0F);
+		this.setBlockUnbreakable();
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister ir) {
-		icon = ir.registerIcon(EnergeticShielding.texture("protected_blank"));
+		this.icon = ir.registerIcon(EnergeticShielding.texture("protected_blank"));
 		BlockProtected.overlayIcon = ir.registerIcon(EnergeticShielding.texture("protected_overlay"));
 	}
 
 	@Override
 	public IIcon getIcon(int i, int m) {
-		return icon;
+		return this.icon;
 	}
 
 	@Override
@@ -86,28 +86,28 @@ public class BlockProtected extends BlockContainer {
 	int sc = 0;
 
 	public Block getBlock(World world, int x, int y, int z) {
-		if (sc > 5) {
-			sc = 0;
+		if (this.sc > 5) {
+			this.sc = 0;
 			return Blocks.stone;
 		}
-		sc += 1;
+		this.sc += 1;
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if (tile != null && tile instanceof TileProtected) {
-			sc = 0;
+			this.sc = 0;
 			return ((TileProtected) tile).block;
 		}
 		return Blocks.stone;
 	}
 
 	public Block getBlock(IBlockAccess world, int x, int y, int z) {
-		if (sc > 5) {
-			sc = 0;
+		if (this.sc > 5) {
+			this.sc = 0;
 			return Blocks.stone;
 		}
-		sc += 1;
+		this.sc += 1;
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if (tile != null && tile instanceof TileProtected) {
-			sc = 0;
+			this.sc = 0;
 			return ((TileProtected) tile).block;
 		}
 		return Blocks.stone;

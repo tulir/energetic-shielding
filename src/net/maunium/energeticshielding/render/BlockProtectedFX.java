@@ -25,28 +25,28 @@ public class BlockProtectedFX extends EntityFX {
 
 		this.side = side;
 
-		particleGravity = 0.0F;
-		motionX = motionY = motionZ = 0.0D;
-		particleMaxAge = 12 + rand.nextInt(5);
-		noClip = false;
-		setSize(0.01F, 0.01F);
-		prevPosX = posX;
-		prevPosY = posY;
-		prevPosZ = posZ;
-		noClip = true;
-		particleScale = (float) (1.4D + rand.nextGaussian() * 0.30000001192092896D);
-		rotation = rand.nextInt(360);
-		sx = MathHelper.clamp_float(f - 0.6F + rand.nextFloat() * 0.2F, -0.4F, 0.4F);
-		sy = MathHelper.clamp_float(f1 - 0.6F + rand.nextFloat() * 0.2F, -0.4F, 0.4F);
-		sz = MathHelper.clamp_float(f2 - 0.6F + rand.nextFloat() * 0.2F, -0.4F, 0.4F);
+		this.particleGravity = 0.0F;
+		this.motionX = this.motionY = this.motionZ = 0.0D;
+		this.particleMaxAge = 12 + this.rand.nextInt(5);
+		this.noClip = false;
+		this.setSize(0.01F, 0.01F);
+		this.prevPosX = this.posX;
+		this.prevPosY = this.posY;
+		this.prevPosZ = this.posZ;
+		this.noClip = true;
+		this.particleScale = (float) (1.4D + this.rand.nextGaussian() * 0.30000001192092896D);
+		this.rotation = this.rand.nextInt(360);
+		this.sx = MathHelper.clamp_float(f - 0.6F + this.rand.nextFloat() * 0.2F, -0.4F, 0.4F);
+		this.sy = MathHelper.clamp_float(f1 - 0.6F + this.rand.nextFloat() * 0.2F, -0.4F, 0.4F);
+		this.sz = MathHelper.clamp_float(f2 - 0.6F + this.rand.nextFloat() * 0.2F, -0.4F, 0.4F);
 		if (side.offsetX != 0) {
-			sx = 0.0F;
+			this.sx = 0.0F;
 		}
 		if (side.offsetY != 0) {
-			sy = 0.0F;
+			this.sy = 0.0F;
 		}
 		if (side.offsetZ != 0) {
-			sz = 0.0F;
+			this.sz = 0.0F;
 		}
 	}
 
@@ -63,33 +63,33 @@ public class BlockProtectedFX extends EntityFX {
 				.bindTexture(new ResourceLocation(EnergeticShielding.MODID, "textures/misc/protection.png"));
 
 		GL11.glDepthMask(false);
-		GL11.glEnable(3042);
-		GL11.glBlendFunc(770, 1);
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, 1);
 
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, particleAlpha / 2.0F);
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, this.particleAlpha / 2.0F);
 
-		float var13 = (float) (prevPosX + (posX - prevPosX) * f - interpPosX);
-		float var14 = (float) (prevPosY + (posY - prevPosY) * f - interpPosY);
-		float var15 = (float) (prevPosZ + (posZ - prevPosZ) * f - interpPosZ);
+		float var13 = (float) (this.prevPosX + (this.posX - this.prevPosX) * f - interpPosX);
+		float var14 = (float) (this.prevPosY + (this.posY - this.prevPosY) * f - interpPosY);
+		float var15 = (float) (this.prevPosZ + (this.posZ - this.prevPosZ) * f - interpPosZ);
 
-		GL11.glTranslated(var13 + sx, var14 + sy, var15 + sz);
+		GL11.glTranslated(var13 + this.sx, var14 + this.sy, var15 + this.sz);
 
-		GL11.glRotatef(90.0F, side.offsetY, -side.offsetX, side.offsetZ);
-		GL11.glRotatef(rotation, 0.0F, 0.0F, 1.0F);
-		if (side.offsetZ > 0) {
+		GL11.glRotatef(90.0F, this.side.offsetY, -this.side.offsetX, this.side.offsetZ);
+		GL11.glRotatef(this.rotation, 0.0F, 0.0F, 1.0F);
+		if (this.side.offsetZ > 0) {
 			GL11.glTranslated(0.0D, 0.0D, 0.505);
 			GL11.glRotatef(180.0F, 0.0F, -1.0F, 0.0F);
 		} else {
 			GL11.glTranslated(0.0D, 0.0D, -0.505);
 		}
-		float var12 = particleScale;
+		float var12 = this.particleScale;
 
 		float var16 = 1.0F;
 
 		tessellator.startDrawingQuads();
 		tessellator.setBrightness(240);
-		tessellator.setColorRGBA_F(particleRed * var16, particleGreen * var16, particleBlue * var16,
-				particleAlpha / 2.0F);
+		tessellator.setColorRGBA_F(this.particleRed * var16, this.particleGreen * var16, this.particleBlue * var16,
+				this.particleAlpha / 2.0F);
 
 		tessellator.addVertexWithUV(-0.5D * var12, 0.5D * var12, 0.0D, 0.0D, 1.0D);
 		tessellator.addVertexWithUV(0.5D * var12, 0.5D * var12, 0.0D, 1.0D, 1.0D);
@@ -97,11 +97,11 @@ public class BlockProtectedFX extends EntityFX {
 		tessellator.addVertexWithUV(-0.5D * var12, -0.5D * var12, 0.0D, 0.0D, 0.0D);
 		tessellator.draw();
 
-		GL11.glDisable(3042);
+		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glDepthMask(true);
 
 		GL11.glPopMatrix();
-		Minecraft.getMinecraft().renderEngine.bindTexture(getParticleTexture());
+		Minecraft.getMinecraft().renderEngine.bindTexture(this.getParticleTexture());
 		tessellator.startDrawingQuads();
 	}
 
@@ -116,26 +116,26 @@ public class BlockProtectedFX extends EntityFX {
 
 	@Override
 	public void onUpdate() {
-		prevPosX = posX;
-		prevPosY = posY;
-		prevPosZ = posZ;
-		float threshold = particleMaxAge / 5.0F;
-		if (particleAge <= threshold) {
-			particleAlpha = particleAge / threshold;
+		this.prevPosX = this.posX;
+		this.prevPosY = this.posY;
+		this.prevPosZ = this.posZ;
+		float threshold = this.particleMaxAge / 5.0F;
+		if (this.particleAge <= threshold) {
+			this.particleAlpha = this.particleAge / threshold;
 		} else {
-			particleAlpha = (particleMaxAge - particleAge) / particleMaxAge;
+			this.particleAlpha = (this.particleMaxAge - this.particleAge) / this.particleMaxAge;
 		}
-		if (particleAge++ >= particleMaxAge) {
-			setDead();
+		if (this.particleAge++ >= this.particleMaxAge) {
+			this.setDead();
 		}
-		motionY -= 0.04D * particleGravity;
+		this.motionY -= 0.04D * this.particleGravity;
 
-		posX += motionX;
-		posY += motionY;
-		posZ += motionZ;
+		this.posX += this.motionX;
+		this.posY += this.motionY;
+		this.posZ += this.motionZ;
 	}
 
 	public void setGravity(float value) {
-		particleGravity = value;
+		this.particleGravity = value;
 	}
 }
