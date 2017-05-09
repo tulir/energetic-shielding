@@ -12,14 +12,14 @@ import net.maunium.energeticshielding.EnergeticShielding;
 public class BlockDestabilizedShinyElectrum extends Block {
 	protected BlockDestabilizedShinyElectrum() {
 		super(Material.iron);
-		this.setBlockName("blockDestabilizedShinyElectrum");
-
-		this.setBlockTextureName(EnergeticShielding.MODID + ":destabilized_shiny_electrum_block");
-		this.setCreativeTab(EnergeticShielding.tab);
-		this.setHardness(7.5F);
-		this.setResistance(45.0F);
-		this.setHarvestLevel("pickaxe", 3);
-		this.setStepSound(soundTypeMetal);
+		this
+				.setBlockName("blockDestabilizedShinyElectrum")
+				.setBlockTextureName(EnergeticShielding.MODID + ":destabilized_shiny_electrum_block")
+				.setCreativeTab(EnergeticShielding.tab)
+				.setHardness(7.5F)
+				.setResistance(45.0F)
+				.setStepSound(soundTypeMetal)
+				.setHarvestLevel("pickaxe", 3);
 	}
 
 	@Override

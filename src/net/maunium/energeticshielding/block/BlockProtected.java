@@ -40,10 +40,8 @@ public class BlockProtected extends BlockContainer {
 
 	public BlockProtected() {
 		super(Material.rock);
-		this.setStepSound(soundTypeStone);
 		this.disableStats();
-		this.setResistance(9999.0F);
-		this.setBlockUnbreakable();
+		this.setStepSound(soundTypeStone).setResistance(9999.0F).setBlockUnbreakable();
 	}
 
 	@Override

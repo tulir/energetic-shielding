@@ -17,15 +17,15 @@ import cofh.lib.util.position.BlockPosition;
 public class BlockTranslocatable extends Block {
 	protected BlockTranslocatable() {
 		super(Material.rock);
-		this.setBlockName("blockTranslocatable");
-
-		this.setBlockTextureName(EnergeticShielding.MODID + ":translocatable_block");
-		this.setCreativeTab(EnergeticShielding.tab);
-		this.setHardness(1.5F);
-		this.setResistance(30.0F);
-		this.setLightLevel(1.0F);
-		this.setHarvestLevel("pickaxe", 2);
-		this.setStepSound(soundTypeStone);
+		this
+				.setBlockName("blockTranslocatable")
+				.setBlockTextureName(EnergeticShielding.MODID + ":translocatable_block")
+				.setCreativeTab(EnergeticShielding.tab)
+				.setHardness(1.5F)
+				.setResistance(30.0F)
+				.setLightLevel(1.0F)
+				.setStepSound(soundTypeStone)
+				.setHarvestLevel("pickaxe", 2);
 	}
 
 	@Override
