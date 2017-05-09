@@ -79,9 +79,13 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 		return 0;
 	}
 
-	public boolean useEnergy(ItemStack container, int amount) {
+	public boolean useEnergy(ItemStack container, int blocks, boolean remove) {
 		if (container.getTagCompound() == null || !container.getTagCompound().hasKey("Energy")) {
 			return false;
+		}
+		int amount = blocks * 5000;
+		if (remove) {
+			amount /= 5;
 		}
 		int energy = container.getTagCompound().getInteger("Energy");
 		if (energy >= amount) {
@@ -103,11 +107,11 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 	public int getMaxReceive(ItemStack container) {
 		switch (container.getItemDamage() % 4) {
 		case 1:
-			return 500;
-		case 2:
 			return 1000;
-		case 3:
+		case 2:
 			return 5000;
+		case 3:
+			return 25000;
 		default:
 			return 0;
 		}
@@ -117,11 +121,11 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 	public int getMaxEnergyStored(ItemStack container) {
 		switch (container.getItemDamage() % 4) {
 		case 1:
-			return 10000;
+			return 20000;
 		case 2:
-			return 50000;
+			return 180000;
 		case 3:
-			return 200000;
+			return 500000;
 		default:
 			return 0;
 		}
@@ -198,27 +202,26 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 		if (w.isRemote || p.isSneaking()) {
 			return false;
 		}
-		int radius = this.getRadius(stack);
-		if (this.useEnergy(stack, radius * 5000 - stack.getItemDamage() % 4 * 1000)) {
-			this.protect(stack, p, w, x, y, z, side);
-			return true;
-		}
-		return false;
+		return this.protect(stack, p, w, x, y, z, side);
 	}
 
-	public void protect(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side) {
+	public boolean protect(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side) {
 		if (world.isAirBlock(x, y, z)) {
-			return;
+			return false;
 		}
-		player.swingItem();
 
 		TileEntity currentTile = world.getTileEntity(x, y, z);
 		boolean solid = world.isBlockNormalCubeDefault(x, y, z, true);
 		if (currentTile == null && solid) {
 			List<BlockPosition> blocks = this.getBlocksInRadius(stack, x, y, z, ForgeDirection.getOrientation(side));
 
+			if (!this.useEnergy(stack, blocks.size(), false)) {
+				return false;
+			}
+
 			int[] wandFriends = ItemIdentityCard.getFriendHashes(stack, player);
 
+			player.swingItem();
 			for (BlockPosition pos : blocks) {
 				if (pos.getTileEntity(world) == null && world.isBlockNormalCubeDefault(pos.x, pos.y, pos.z, true)) {
 					Block block = pos.getBlock(world);
@@ -236,11 +239,18 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 				}
 			}
 			// Sound effect can be played here
+			return true;
 		} else if (currentTile != null && currentTile instanceof TileProtected) {
 			TileProtected currentTileProtected = (TileProtected) currentTile;
 			if (currentTileProtected.canBeEditedBy(player)) {
 				List<BlockPosition> blocks = this.getBlocksInRadius(stack, x, y, z,
 						ForgeDirection.getOrientation(side));
+
+				if (!this.useEnergy(stack, blocks.size(), true)) {
+					return false;
+				}
+
+				player.swingItem();
 				for (BlockPosition pos : blocks) {
 					TileProtected tile = pos.getTileEntity(world, TileProtected.class);
 					if (tile != null && tile.canBeEditedBy(player)) {
@@ -249,7 +259,12 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 					}
 				}
 				// Sound effect can be played here
+				return true;
+			} else {
+				return false;
 			}
+		} else {
+			return false;
 		}
 	}
 
