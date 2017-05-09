@@ -48,6 +48,13 @@ public class BlockTranslocatable extends Block {
 			BlockPosition pos = freePoints.get(w.rand.nextInt(freePoints.size()));
 			w.setBlock(bx, by, bz, Blocks.air);
 			w.setBlock(pos.x, pos.y, pos.z, this);
+			int pxFloor = (int) Math.floor(p.posX);
+			int pyFloor = (int) Math.floor(p.posY);
+			int pzFloor = (int) Math.floor(p.posZ);
+			if (pxFloor == bx && pyFloor == by + 1 && pzFloor == bz) {
+				p.setPositionAndUpdate(pos.x + p.posX - pxFloor, pos.y + 1 + p.posY - pyFloor,
+						pos.z + p.posZ - pzFloor);
+			}
 		} else {
 			super.onBlockClicked(w, bx, by, bz, p);
 		}
