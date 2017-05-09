@@ -3,6 +3,8 @@ tile.blockEnderDiamond.name=Ender-Infused Block of Diamond
 tile.blockShinyElectrum.name=Shiny Electrum Block
 tile.blockDestabilizedShinyElectrum.name=Destabilized Shiny Electrum Block
 
+tile.fluidStar.name=Liquified Nether Star
+
 item.ingotConductiveIron.name=Conductive Iron Ingot
 item.gemEnderDiamond.name=Ender-Infused Diamond
 item.dustShinyElectrum.name=Shiny Electrum Blend

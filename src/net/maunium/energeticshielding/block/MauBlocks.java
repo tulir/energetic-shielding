@@ -2,13 +2,16 @@ package net.maunium.energeticshielding.block;
 
 import net.minecraft.block.Block;
 
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class MauBlocks {
 	public static Block blockConductiveIron, blockTranslocatable, blockEnderDiamond, blockShinyElectrum,
-			blockDestabilizedShinyElectrum, blockProtected;
+			blockDestabilizedShinyElectrum, blockProtected, blockFluidStar;
+	public static Fluid fluidStar;
 
 	public static final void init() {
 		GameRegistry.registerBlock(blockConductiveIron = new BlockConductiveIron(), "blockConductiveIron");
@@ -22,5 +25,7 @@ public final class MauBlocks {
 				"blockDestabilizedShinyElectrum");
 		OreDictionary.registerOre("blockDestabilizedShinyElectrum", blockDestabilizedShinyElectrum);
 		GameRegistry.registerBlock(blockProtected = new BlockProtected(), "blockProtected");
+		FluidRegistry.registerFluid(fluidStar = new Fluid("fluidStar"));
+		GameRegistry.registerBlock(blockFluidStar = new BlockFluidStar(fluidStar), "blockFluidStar");
 	}
 }
