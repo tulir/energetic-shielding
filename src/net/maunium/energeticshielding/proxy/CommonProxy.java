@@ -5,8 +5,8 @@ import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
 import net.maunium.energeticshielding.EnergeticShielding;
-import net.maunium.energeticshielding.MauCrafting;
 import net.maunium.energeticshielding.block.MauBlocks;
+import net.maunium.energeticshielding.crafting.MauCrafting;
 import net.maunium.energeticshielding.interop.Wrench;
 import net.maunium.energeticshielding.item.MauItems;
 import net.maunium.energeticshielding.tile.MauTiles;

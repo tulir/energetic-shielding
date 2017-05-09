@@ -43,6 +43,8 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 		int maxEnergy = this.getMaxEnergyStored(stack);
 		int energy = this.getEnergyStored(stack);
 		list.add(String.format("Charge: %d / %d RF", energy, maxEnergy));
+		list.add("");
+		MauItems.identityCard.addInformation(stack, player, list, bool);
 	}
 
 	@Override

@@ -5,11 +5,8 @@ import java.util.List;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ChatComponentText;
@@ -49,6 +46,7 @@ public class ItemIdentityCard extends Item {
 		friend.setString("Name", target.getDisplayName());
 		friend.setString("UUID", target.getUniqueID().toString());
 		list.appendTag(friend);
+		tag.setTag("Friends", list);
 		player.addChatComponentMessage(new ChatComponentText("Added " + target.getDisplayName() + " to friend list!"));
 	}
 
@@ -124,65 +122,4 @@ public class ItemIdentityCard extends Item {
 		}
 		return super.itemInteractionForEntity(stack, player, target);
 	}
-
-	public static final IRecipe cardDuplication = new ShapelessRecipes(new ItemStack(MauItems.lockingWand), Arrays
-			.asList(new ItemStack[] { new ItemStack(MauItems.lockingWand), new ItemStack(MauItems.identityCard) })) {
-		@Override
-		public ItemStack getCraftingResult(InventoryCrafting crafting) {
-			ItemStack card1 = null, card2 = null;
-			for (int i = 0; i < crafting.getSizeInventory(); i++) {
-				ItemStack stack = crafting.getStackInSlot(i);
-				if (stack != null && stack.getItem() instanceof ItemIdentityCard) {
-					if (card1 == null) {
-						card1 = stack;
-					} else if (card2 == null) {
-						card2 = stack;
-					} else {
-						return null;
-					}
-				} else {
-					continue;
-				}
-			}
-			ItemStack newCard = card1.copy();
-			newCard.stackSize = 2;
-			return newCard;
-		}
-	};
-
-	public static final IRecipe cardToWand = new ShapelessRecipes(new ItemStack(MauItems.identityCard), Arrays
-			.asList(new ItemStack[] { new ItemStack(MauItems.identityCard), new ItemStack(MauItems.identityCard) })) {
-		@Override
-		public ItemStack getCraftingResult(InventoryCrafting crafting) {
-			ItemStack wand = null, card = null;
-			for (int i = 0; i < crafting.getSizeInventory(); i++) {
-				ItemStack stack = crafting.getStackInSlot(i);
-				if (stack != null && stack.getItem() instanceof ItemLockingWand) {
-					if (wand != null) {
-						return null;
-					}
-					wand = stack.copy();
-				} else if (stack != null && stack.getItem() instanceof ItemIdentityCard) {
-					if (card != null) {
-						return null;
-					}
-					card = stack;
-				} else {
-					return null;
-				}
-			}
-			if (wand == null || card == null) {
-				return null;
-			}
-			if (card.hasTagCompound()) {
-				if (!wand.hasTagCompound()) {
-					wand.setTagCompound(new NBTTagCompound());
-				}
-				NBTTagCompound tag = wand.getTagCompound();
-				tag.setTag("Friends", card.getTagCompound().getTagList("Friends", Constants.NBT.TAG_COMPOUND));
-			}
-
-			return wand;
-		}
-	};
 }

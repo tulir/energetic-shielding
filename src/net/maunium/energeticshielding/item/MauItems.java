@@ -12,7 +12,8 @@ public final class MauItems {
 	public static Item ingotConductiveIron, gemEnderDiamond, dustShinyElectrum, ingotShinyElectrum,
 			ingotDestabilizedShinyElectrum;
 	public static Item lockingCircuit, advancedLockingCircuit, remoteLockingCircuit, advancedRemoteLockingCircuit,
-			enderInfusedStick, lockCoating, lockingWand, lockingWandCore, identityCard;
+			enderInfusedStick, lockCoating, lockingWand, lockingWandCore;
+	public static ItemIdentityCard identityCard;
 
 	public static final void init() {
 		ingotConductiveIron = new Item()

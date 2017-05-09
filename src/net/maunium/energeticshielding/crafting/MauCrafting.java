@@ -1,11 +1,10 @@
-package net.maunium.energeticshielding;
+package net.maunium.energeticshielding.crafting;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import net.maunium.energeticshielding.block.MauBlocks;
-import net.maunium.energeticshielding.item.ItemIdentityCard;
 import net.maunium.energeticshielding.item.MauItems;
 
 import net.minecraftforge.fluids.FluidStack;
@@ -87,8 +86,8 @@ public final class MauCrafting {
 				'C', MauItems.lockingCircuit,
 				'P', Items.paper);
 
-		GameRegistry.addRecipe(ItemIdentityCard.cardDuplication);
-		GameRegistry.addRecipe(ItemIdentityCard.cardToWand);
+		GameRegistry.addRecipe(new CraftIdentityCardDuplication());
+		GameRegistry.addRecipe(new CraftCardToWand());
 
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MauItems.lockingWandCore, 1, 0),
 				"SES",
