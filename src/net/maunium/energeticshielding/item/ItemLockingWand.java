@@ -43,6 +43,7 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 		int maxEnergy = this.getMaxEnergyStored(stack);
 		int energy = this.getEnergyStored(stack);
 		list.add(String.format("Charge: %d / %d RF", energy, maxEnergy));
+		list.add(String.format("Radius: %d", this.getRadius(stack)));
 		list.add("");
 		MauItems.identityCard.addInformation(stack, player, list, bool);
 	}
@@ -79,12 +80,12 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 		return 0;
 	}
 
-	public boolean useEnergy(ItemStack container, int blocks, boolean remove) {
+	public boolean useEnergy(ItemStack container, int blocks, boolean protect) {
 		if (container.getTagCompound() == null || !container.getTagCompound().hasKey("Energy")) {
 			return false;
 		}
 		int amount = blocks * 5000;
-		if (remove) {
+		if (!protect) {
 			amount /= 5;
 		}
 		int energy = container.getTagCompound().getInteger("Energy");
@@ -213,9 +214,10 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 		TileEntity currentTile = world.getTileEntity(x, y, z);
 		boolean solid = world.isBlockNormalCubeDefault(x, y, z, true);
 		if (currentTile == null && solid) {
-			List<BlockPosition> blocks = this.getBlocksInRadius(stack, x, y, z, ForgeDirection.getOrientation(side));
+			List<BlockPosition> blocks = this.getBlocksInRadius(stack, player, world, x, y, z,
+					ForgeDirection.getOrientation(side), true);
 
-			if (!this.useEnergy(stack, blocks.size(), false)) {
+			if (!this.useEnergy(stack, blocks.size(), true)) {
 				return false;
 			}
 
@@ -223,19 +225,17 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 
 			player.swingItem();
 			for (BlockPosition pos : blocks) {
-				if (pos.getTileEntity(world) == null && world.isBlockNormalCubeDefault(pos.x, pos.y, pos.z, true)) {
-					Block block = pos.getBlock(world);
-					int meta = world.getBlockMetadata(pos.x, pos.y, pos.z);
-					int light = block.getLightValue(world, pos.x, pos.y, pos.z);
-					world.setBlock(pos.x, pos.y, pos.z, MauBlocks.blockProtected, meta, 3);
-					TileProtected tile = pos.getTileEntity(world, TileProtected.class);
-					if (tile != null) {
-						tile.block = block;
-						tile.blockMeta = (byte) meta;
-						tile.light = (byte) light;
-						tile.owners = wandFriends;
-						world.markBlockForUpdate(pos.x, pos.y, pos.z);
-					}
+				Block block = pos.getBlock(world);
+				int meta = world.getBlockMetadata(pos.x, pos.y, pos.z);
+				int light = block.getLightValue(world, pos.x, pos.y, pos.z);
+				world.setBlock(pos.x, pos.y, pos.z, MauBlocks.blockProtected, meta, 3);
+				TileProtected tile = pos.getTileEntity(world, TileProtected.class);
+				if (tile != null) {
+					tile.block = block;
+					tile.blockMeta = (byte) meta;
+					tile.light = (byte) light;
+					tile.owners = wandFriends;
+					world.markBlockForUpdate(pos.x, pos.y, pos.z);
 				}
 			}
 			// Sound effect can be played here
@@ -243,20 +243,18 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 		} else if (currentTile != null && currentTile instanceof TileProtected) {
 			TileProtected currentTileProtected = (TileProtected) currentTile;
 			if (currentTileProtected.canBeEditedBy(player)) {
-				List<BlockPosition> blocks = this.getBlocksInRadius(stack, x, y, z,
-						ForgeDirection.getOrientation(side));
+				List<BlockPosition> blocks = this.getBlocksInRadius(stack, player, world, x, y, z,
+						ForgeDirection.getOrientation(side), false);
 
-				if (!this.useEnergy(stack, blocks.size(), true)) {
+				if (!this.useEnergy(stack, blocks.size(), false)) {
 					return false;
 				}
 
 				player.swingItem();
 				for (BlockPosition pos : blocks) {
 					TileProtected tile = pos.getTileEntity(world, TileProtected.class);
-					if (tile != null && tile.canBeEditedBy(player)) {
-						world.setBlock(pos.x, pos.y, pos.z, tile.block, tile.blockMeta, 3);
-						world.markBlockForUpdate(pos.x, pos.y, pos.z);
-					}
+					world.setBlock(pos.x, pos.y, pos.z, tile.block, tile.blockMeta, 3);
+					world.markBlockForUpdate(pos.x, pos.y, pos.z);
 				}
 				// Sound effect can be played here
 				return true;
@@ -268,26 +266,52 @@ public class ItemLockingWand extends Item implements IEnergyContainerItem {
 		}
 	}
 
-	public List<BlockPosition> getBlocksInRadius(ItemStack stack, int centerX, int centerY, int centerZ,
-			ForgeDirection side) {
+	public boolean canProtect(EntityPlayer p, World w, BlockPosition pos) {
+		return pos.getTileEntity(w) == null && w.isBlockNormalCubeDefault(pos.x, pos.y, pos.z, true);
+	}
+
+	public boolean canUnprotect(EntityPlayer p, World w, BlockPosition pos) {
+		TileProtected tile = pos.getTileEntity(w, TileProtected.class);
+		return tile != null && tile.canBeEditedBy(p);
+	}
+
+	public boolean canProtectOrUnprotect(EntityPlayer p, World w, BlockPosition pos, boolean protect) {
+		if (protect) {
+			return this.canProtect(p, w, pos);
+		} else {
+			return this.canUnprotect(p, w, pos);
+		}
+	}
+
+	public List<BlockPosition> getBlocksInRadius(ItemStack stack, EntityPlayer p, World w, int centerX, int centerY,
+			int centerZ, ForgeDirection side, boolean protect) {
 		int radius = this.getRadius(stack) - 1;
 		List<BlockPosition> blocks = new ArrayList<>();
 		if (side == ForgeDirection.DOWN || side == ForgeDirection.UP) {
 			for (int x = centerX - radius; x <= centerX + radius; x++) {
 				for (int z = centerZ - radius; z <= centerZ + radius; z++) {
-					blocks.add(new BlockPosition(x, centerY, z));
+					BlockPosition pos = new BlockPosition(x, centerY, z);
+					if (this.canProtectOrUnprotect(p, w, pos, protect)) {
+						blocks.add(pos);
+					}
 				}
 			}
 		} else if (side == ForgeDirection.NORTH || side == ForgeDirection.SOUTH) {
 			for (int x = centerX - radius; x <= centerX + radius; x++) {
 				for (int y = centerY - radius; y <= centerY + radius; y++) {
-					blocks.add(new BlockPosition(x, y, centerZ));
+					BlockPosition pos = new BlockPosition(x, y, centerZ);
+					if (this.canProtectOrUnprotect(p, w, pos, protect)) {
+						blocks.add(pos);
+					}
 				}
 			}
 		} else if (side == ForgeDirection.EAST || side == ForgeDirection.WEST) {
 			for (int z = centerZ - radius; z <= centerZ + radius; z++) {
 				for (int y = centerY - radius; y <= centerY + radius; y++) {
-					blocks.add(new BlockPosition(centerX, y, z));
+					BlockPosition pos = new BlockPosition(centerX, y, z);
+					if (this.canProtectOrUnprotect(p, w, pos, protect)) {
+						blocks.add(pos);
+					}
 				}
 			}
 		}
