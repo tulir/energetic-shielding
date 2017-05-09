@@ -4,12 +4,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import net.maunium.energeticshielding.EnergeticShielding;
 
 public class BlockDestabilizedShinyElectrum extends Block {
-
 	protected BlockDestabilizedShinyElectrum() {
 		super(Material.iron);
 		this.setBlockName("blockDestabilizedShinyElectrum");
@@ -29,8 +29,14 @@ public class BlockDestabilizedShinyElectrum extends Block {
 		}
 	}
 
+	@Override
 	public float getExplosionResistance(Entity e, World world, int x, int y, int z, double expX, double expY,
 			double expZ) {
 		return world.rand.nextFloat() * 30 + 30;
+	}
+
+	@Override
+	public boolean isBeaconBase(IBlockAccess world, int x, int y, int z, int beaconX, int beaconY, int beaconZ) {
+		return ((World) world).rand.nextInt(25) != 0;
 	}
 }

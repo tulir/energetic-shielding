@@ -2,11 +2,11 @@ package net.maunium.energeticshielding.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.world.IBlockAccess;
 
 import net.maunium.energeticshielding.EnergeticShielding;
 
 public class BlockConductiveIron extends Block {
-
 	protected BlockConductiveIron() {
 		super(Material.iron);
 		this.setBlockName("blockConductiveIron");
@@ -19,4 +19,8 @@ public class BlockConductiveIron extends Block {
 		this.setStepSound(soundTypeMetal);
 	}
 
+	@Override
+	public boolean isBeaconBase(IBlockAccess worldObj, int x, int y, int z, int beaconX, int beaconY, int beaconZ) {
+		return true;
+	}
 }
