@@ -11,6 +11,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public final class MauBlocks {
 	public static Block blockConductiveIron, blockTranslocatable, blockEnderDiamond, blockShinyElectrum,
 			blockDestabilizedShinyElectrum, blockProtected, blockFluidStar;
+	public static BlockProtectedDoor blockProtectedDoor;
 	public static Fluid fluidStar;
 
 	public static final void init() {
@@ -27,5 +28,6 @@ public final class MauBlocks {
 		GameRegistry.registerBlock(blockProtected = new BlockProtected(), "blockProtected");
 		FluidRegistry.registerFluid(fluidStar = new Fluid("fluidStar"));
 		GameRegistry.registerBlock(blockFluidStar = new BlockFluidStar(fluidStar), "blockFluidStar");
+		GameRegistry.registerBlock(blockProtectedDoor = new BlockProtectedDoor(), "blockProtectedDoor");
 	}
 }

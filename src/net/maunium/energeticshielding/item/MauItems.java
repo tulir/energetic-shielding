@@ -14,6 +14,7 @@ public final class MauItems {
 	public static Item lockingCircuit, advancedLockingCircuit, remoteLockingCircuit, advancedRemoteLockingCircuit,
 			enderInfusedStick, lockCoating, lockingWand, lockingWandCore;
 	public static ItemIdentityCard identityCard;
+	public static ItemProtectedDoor protectedDoor;
 
 	public static final void init() {
 		ingotConductiveIron = new Item()
@@ -67,6 +68,7 @@ public final class MauItems {
 		GameRegistry.registerItem(lockingWand = new ItemLockingWand(), "lockingWand");
 		GameRegistry.registerItem(lockingWandCore = new ItemLockingWandCore(), "lockingWandCore");
 		GameRegistry.registerItem(identityCard = new ItemIdentityCard(), "identityCard");
+		GameRegistry.registerItem(protectedDoor = new ItemProtectedDoor(), "protectedDoor");
 
 		GameRegistry.registerItem(ingotConductiveIron, "ingotConductiveIron");
 		OreDictionary.registerOre("ingotConductiveIron", ingotConductiveIron);
