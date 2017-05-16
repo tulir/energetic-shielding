@@ -47,11 +47,6 @@ public final class MauItems {
 				.setTextureName(EnergeticShielding.texture("advanced_remote_locking_circuit"))
 				.setCreativeTab(EnergeticShielding.tab);
 
-		lockCoating = new Item()
-				.setUnlocalizedName("lockCoating")
-				.setTextureName(EnergeticShielding.texture("lock_coating"))
-				.setCreativeTab(EnergeticShielding.tab);
-
 		dustShinyElectrum = new Item()
 				.setUnlocalizedName("dustShinyElectrum")
 				.setTextureName(EnergeticShielding.texture("shiny_electrum_blend"))
@@ -69,6 +64,7 @@ public final class MauItems {
 		GameRegistry.registerItem(lockingWandCore = new ItemLockingWandCore(), "lockingWandCore");
 		GameRegistry.registerItem(identityCard = new ItemIdentityCard(), "identityCard");
 		GameRegistry.registerItem(protectedDoor = new ItemProtectedDoor(), "protectedDoor");
+		GameRegistry.registerItem(lockCoating = new ItemLockCoating(), "lockCoating");
 
 		GameRegistry.registerItem(ingotConductiveIron, "ingotConductiveIron");
 		OreDictionary.registerOre("ingotConductiveIron", ingotConductiveIron);
@@ -79,7 +75,6 @@ public final class MauItems {
 		GameRegistry.registerItem(advancedLockingCircuit, "advancedLockingCircuit");
 		GameRegistry.registerItem(remoteLockingCircuit, "remoteLockingCircuit");
 		GameRegistry.registerItem(advancedRemoteLockingCircuit, "advancedRemoteLockingCircuit");
-		GameRegistry.registerItem(lockCoating, "lockCoating");
 
 		GameRegistry.registerItem(dustShinyElectrum, "dustShinyElectrum");
 		OreDictionary.registerOre("dustShinyElectrum", dustShinyElectrum);

@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 
 import net.maunium.energeticshielding.block.BlockProtected;
 import net.maunium.energeticshielding.block.MauBlocks;
-import net.maunium.energeticshielding.item.ItemLockingWand;
+import net.maunium.energeticshielding.item.ILockingItem;
 import net.maunium.energeticshielding.tile.TileProtected;
 
 import cpw.mods.fml.relauncher.Side;
@@ -28,7 +28,7 @@ public class TileProtectedRenderer extends TileEntitySpecialRenderer {
 		if (viewer instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) viewer;
 			if (player.getCurrentEquippedItem() != null
-					&& player.getCurrentEquippedItem().getItem() instanceof ItemLockingWand) {
+					&& player.getCurrentEquippedItem().getItem() instanceof ILockingItem) {
 				GL11.glPushMatrix();
 				GL11.glEnable(GL11.GL_BLEND);
 				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, 1);
@@ -52,31 +52,31 @@ public class TileProtectedRenderer extends TileEntitySpecialRenderer {
 
 				t.setBrightness(200);
 
-				field_147501_a.field_147553_e.bindTexture(TextureMap.locationBlocksTexture);
+				this.field_147501_a.field_147553_e.bindTexture(TextureMap.locationBlocksTexture);
 				GL11.glTexEnvi(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, GL11.GL_ADD);
-				if (shouldSideBeRendered(world, tile.xCoord, tile.yCoord, tile.zCoord, 1)) {
-					renderBlocks.renderFaceYNeg(MauBlocks.blockProtected, -0.5001, 0.0, -0.5001, getIconOnSide(world,
-							tile.xCoord, tile.yCoord, tile.zCoord, 0, tile.owners, player.ticksExisted));
+				if (this.shouldSideBeRendered(world, tile.xCoord, tile.yCoord, tile.zCoord, 1)) {
+					renderBlocks.renderFaceYNeg(MauBlocks.blockProtected, -0.5001, 0.0, -0.5001, this.getIconOnSide(
+							world, tile.xCoord, tile.yCoord, tile.zCoord, 0, tile.owners, player.ticksExisted));
 				}
-				if (shouldSideBeRendered(world, tile.xCoord, tile.yCoord, tile.zCoord, 0)) {
-					renderBlocks.renderFaceYPos(MauBlocks.blockProtected, -0.5001, 0.0, -0.5001, getIconOnSide(world,
-							tile.xCoord, tile.yCoord, tile.zCoord, 1, tile.owners, player.ticksExisted));
+				if (this.shouldSideBeRendered(world, tile.xCoord, tile.yCoord, tile.zCoord, 0)) {
+					renderBlocks.renderFaceYPos(MauBlocks.blockProtected, -0.5001, 0.0, -0.5001, this.getIconOnSide(
+							world, tile.xCoord, tile.yCoord, tile.zCoord, 1, tile.owners, player.ticksExisted));
 				}
-				if (shouldSideBeRendered(world, tile.xCoord, tile.yCoord, tile.zCoord, 3)) {
-					renderBlocks.renderFaceZNeg(MauBlocks.blockProtected, -0.5001, 0.0, -0.5001, getIconOnSide(world,
-							tile.xCoord, tile.yCoord, tile.zCoord, 2, tile.owners, player.ticksExisted));
+				if (this.shouldSideBeRendered(world, tile.xCoord, tile.yCoord, tile.zCoord, 3)) {
+					renderBlocks.renderFaceZNeg(MauBlocks.blockProtected, -0.5001, 0.0, -0.5001, this.getIconOnSide(
+							world, tile.xCoord, tile.yCoord, tile.zCoord, 2, tile.owners, player.ticksExisted));
 				}
-				if (shouldSideBeRendered(world, tile.xCoord, tile.yCoord, tile.zCoord, 2)) {
-					renderBlocks.renderFaceZPos(MauBlocks.blockProtected, -0.5001, 0.0, -0.5001, getIconOnSide(world,
-							tile.xCoord, tile.yCoord, tile.zCoord, 3, tile.owners, player.ticksExisted));
+				if (this.shouldSideBeRendered(world, tile.xCoord, tile.yCoord, tile.zCoord, 2)) {
+					renderBlocks.renderFaceZPos(MauBlocks.blockProtected, -0.5001, 0.0, -0.5001, this.getIconOnSide(
+							world, tile.xCoord, tile.yCoord, tile.zCoord, 3, tile.owners, player.ticksExisted));
 				}
-				if (shouldSideBeRendered(world, tile.xCoord, tile.yCoord, tile.zCoord, 5)) {
-					renderBlocks.renderFaceXNeg(MauBlocks.blockProtected, -0.5001, 0.0, -0.5001, getIconOnSide(world,
-							tile.xCoord, tile.yCoord, tile.zCoord, 4, tile.owners, player.ticksExisted));
+				if (this.shouldSideBeRendered(world, tile.xCoord, tile.yCoord, tile.zCoord, 5)) {
+					renderBlocks.renderFaceXNeg(MauBlocks.blockProtected, -0.5001, 0.0, -0.5001, this.getIconOnSide(
+							world, tile.xCoord, tile.yCoord, tile.zCoord, 4, tile.owners, player.ticksExisted));
 				}
-				if (shouldSideBeRendered(world, tile.xCoord, tile.yCoord, tile.zCoord, 4)) {
-					renderBlocks.renderFaceXPos(MauBlocks.blockProtected, -0.5001, 0.0, -0.5001, getIconOnSide(world,
-							tile.xCoord, tile.yCoord, tile.zCoord, 5, tile.owners, player.ticksExisted));
+				if (this.shouldSideBeRendered(world, tile.xCoord, tile.yCoord, tile.zCoord, 4)) {
+					renderBlocks.renderFaceXPos(MauBlocks.blockProtected, -0.5001, 0.0, -0.5001, this.getIconOnSide(
+							world, tile.xCoord, tile.yCoord, tile.zCoord, 5, tile.owners, player.ticksExisted));
 				}
 				t.draw();
 				GL11.glTexEnvi(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_MODE, GL11.GL_MODULATE);
