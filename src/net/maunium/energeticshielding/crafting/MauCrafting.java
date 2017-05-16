@@ -61,7 +61,7 @@ public final class MauCrafting {
 				" E ",
 				'E', Items.ender_pearl,
 				'S', Blocks.stonebrick);
-		GameRegistry.addShapelessRecipe(new ItemStack(MauItems.lockCoating, 2),
+		GameRegistry.addShapelessRecipe(new ItemStack(MauItems.lockCoating, 4),
 				MauBlocks.blockTranslocatable, MauItems.remoteLockingCircuit);
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MauItems.advancedLockingCircuit),
 				" R ",
