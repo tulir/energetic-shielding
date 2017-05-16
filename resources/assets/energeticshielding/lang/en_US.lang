@@ -14,7 +14,9 @@ item.dustShinyElectrum.name=Shiny Electrum Blend
 item.ingotShinyElectrum.name=Shiny Electrum Ingot
 item.ingotDestabilizedShinyElectrum.name=Destabilized Shiny Electrum Ingot
 
-tile.blockTranslocatable.name=Translocatable Block
+tile.blockTranslocatable_wild.name=Translocatable Block
+tile.blockTranslocatable_unstable.name=Unstable Translocatable Block
+tile.blockTranslocatable_stable.name=Stable Translocatable Block
 
 item.enderInfusedStick.name=Ender-Infused Stick
 item.lockCoating.name=Lock Coating

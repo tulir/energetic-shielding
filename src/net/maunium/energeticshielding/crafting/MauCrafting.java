@@ -55,14 +55,39 @@ public final class MauCrafting {
 				'G', "ingotGold",
 				'R', "dustRedstone",
 				'S', "ingotSignalum"));
+
 		GameRegistry.addRecipe(new ItemStack(MauBlocks.blockTranslocatable, 2),
 				" E ",
 				"ESE",
 				" E ",
 				'E', Items.ender_pearl,
 				'S', Blocks.stonebrick);
+		GameRegistry.addRecipe(new ItemStack(MauBlocks.blockTranslocatable, 1, 1),
+				"DED",
+				"ESE",
+				"DED",
+				'E', Items.ender_pearl,
+				'S', Blocks.stonebrick,
+				'D', MauItems.ingotDestabilizedShinyElectrum);
+		GameRegistry.addRecipe(new ItemStack(MauBlocks.blockTranslocatable, 1, 1),
+				"EDE",
+				"DSD",
+				"EDE",
+				'E', Items.ender_pearl,
+				'S', Blocks.stonebrick,
+				'D', MauItems.ingotDestabilizedShinyElectrum);
+		GameRegistry.addRecipe(new ItemStack(MauBlocks.blockTranslocatable, 1, 1),
+				" D ",
+				"DBD",
+				" D ",
+				'B', new ItemStack(MauBlocks.blockTranslocatable, 1, 0),
+				'D', MauItems.ingotDestabilizedShinyElectrum);
+		ThermalExpansionHelper.addTransposerFill(4000, new ItemStack(MauBlocks.blockTranslocatable, 1, 1),
+				new ItemStack(MauBlocks.blockTranslocatable, 1, 2), new FluidStack(TFFluids.fluidCryotheum, 250), false);
+
+
 		GameRegistry.addShapelessRecipe(new ItemStack(MauItems.lockCoating, 4),
-				MauBlocks.blockTranslocatable, MauItems.remoteLockingCircuit);
+				new ItemStack(MauBlocks.blockTranslocatable, 1, 1), MauItems.remoteLockingCircuit);
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MauItems.advancedLockingCircuit),
 				" R ",
 				"DLD",
